@@ -1,6 +1,8 @@
 
 <!DOCTYPE html>
 <html lang="fr-CH">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.4/Chart.js"></script>
+
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -9,9 +11,43 @@
   <title> "EquationiX"</title>
 </head>
 <body>
-<div class="container">
-        <h1 class="title">"Equationix"</h1>
+
+
+        <h1 class="title">Equationix</h1>
+        <p1> Choose wich one: </p1> 
+        <select id="equations" name="equation_choice">
+          <option value="1">Equation du 1er degré</option>
+          <option value="2">Equation du 2e degré</option>
+          <option value="3">Equation du 3e degré</option>
+        </select>
+        <div id="EquationFilling">
+
+          <input type="text" id="param3" value="0">
+          <label id="x3" > X<sup>3</sup> + </label>
+
+          <input type="text" id="param2" value="0">
+          <label id="x2" > X<sup>2</sup> + </label>
+
+          <input type="text" id="param1" value="0">
+          <label id="x1" > X </label>
+
+          <label id="cons_label" > + </label>
+          <input type="text" id="cons" value="0">
+
+          <button onclick="Calculate()" type="button">Calculate</button>
+
+         </div>
+        <br>
+        <p3>Zéro: </p3>
+        <p2 id="sol">TEST</p2>
+        <canvas id="myChart" style="width:100%;max-width:700px"></canvas>
+
+           
+         
+
         
+
+<script src="JavaScript.js"></script>
 
 
 
