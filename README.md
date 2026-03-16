@@ -1,2 +1,2 @@
 # SiteWebSemaineInfoEcole
-This is the source and code of a small school project website.
+This is the final source and code of a small school project website.
