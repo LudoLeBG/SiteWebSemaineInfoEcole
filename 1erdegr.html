@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.4/Chart.js"></script>
+<body>
+<canvas id="myChart" style="width:100%;max-width:700px"></canvas>
+
+<script>
+function solve_equation(a, b)
+{
+x = (-b)/a
+return x
+}
+var a = prompt("Enter a: ");
+var b = prompt("Enter b: ");
+
+if(a == 0)
+{
+alert("constant " + b);
+}
+else
+{
+var solution = solve_equation(a, b);
+
+alert(solution)
+}
+
+var xValues = [];
+var yValues = [];
+for(var x = -10; x <= 10; x = x + 1)
+{
+xValues.push(x);
+yValues.push(a*x + b);
+}
+new Chart("myChart", {
+type: "line",
+data: {
+labels: xValues,
+datasets: [{
+fill: false,
+data: yValues
+}]
+},
+options: {
+legend: {display: false}
+}
+});
+
+
+</script>
+
+</body>
+</html>
+
+
