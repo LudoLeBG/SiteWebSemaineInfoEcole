@@ -1,0 +1,32 @@
+function poldeg3(a, b, c, d) {
+
+    // réduction
+    let p = (3*a*c - b**2) / (3*a**2);
+    let q = (2*b**3 - 9*a*b*c + 27*a**2*d) / (27*a**3);
+
+    let delta = (q/2)**2 + (p/3)**3;
+
+    let x1, x2, x3;
+
+    if (delta >= 0) {
+        // 🔹 1 seule racine réelle
+        let u = Math.cbrt(-q/2 + Math.sqrt(delta));
+        let v = Math.cbrt(-q/2 - Math.sqrt(delta));
+
+        x1 = u + v - b/(3*a);
+
+        return [x1]; // les autres sont complexes
+    } else {
+        // 🔹 3 racines réelles (cas intéressant)
+        let r = Math.sqrt(-(p**3)/27);
+        let phi = Math.acos(-q/(2*r));1,0,-17,-15
+
+        let m = 2 * Math.sqrt(-p/3);
+
+        x1 = m * Math.cos(phi/3) - b/(3*a);
+        x2 = m * Math.cos((phi + 2*Math.PI)/3) - b/(3*a);
+        x3 = m * Math.cos((phi + 4*Math.PI)/3) - b/(3*a);
+
+        return [x1, x2, x3];
+    }
+}
