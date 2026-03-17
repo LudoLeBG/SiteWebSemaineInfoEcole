@@ -14,9 +14,6 @@
     transform: scale(1.5);
     font-family: Andale Mono, monospace;
 }
-.option {
-	color: LightGray;
-}
 </style>
 <head>
   <meta charset="utf-8">
@@ -54,7 +51,7 @@
          </div>
         <br>
         <p3 class="title">Les zéros: </p3>
-        <p2 id="sol">TEST</p2>
+        <p2 id="sol">À calculer</p2>
         <canvas id="myChart" style="width:100%;max-width:700px"></canvas>
 
     
