@@ -1,0 +1,18 @@
+/* pour bouton calculate */
+.button-style {
+	  background-color: #66737E;
+  border: 2px solid #284156;
+  border-radius: 12px;
+  color: black;
+  padding: 5px 20px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 16px;
+  cursor: pointer;
+}
+
+.button-style:hover {
+  background-color: #284156;
+  color: white;
+}
