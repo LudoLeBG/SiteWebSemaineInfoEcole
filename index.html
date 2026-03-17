@@ -8,13 +8,13 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <link href="styling.css" rel="stylesheet" />
   <link rel="icon" type="image/x-icon" href="source/Website icon.png">
-  <title> "EquationiX"</title>
+  <title class="TITLE"> EquationiX</title>
 </head>
 <body>
 
 
-        <h1 class="title">Equationix</h1>
-        <p1> Choose wich one: </p1> 
+        <h1 class="main-title"><sub> <img src="source/Website icon.png" alt="website Logo" style="width:50px;height:50px;"></sub> Equationix</h1> 
+         <p1 class="title"> Choisis le degré: </p1> 
         <select id="equations" name="equation_choice">
           <option value="1">Equation du 1er degré</option>
           <option value="2">Equation du 2e degré</option>
@@ -34,11 +34,11 @@
           <label id="cons_label" > + </label>
           <input type="text" id="cons" value="0">
 
-          <button onclick="Calculate()" type="button">Calculate</button>
+          <button class="button-style" onclick="Calculate()" type="button">Calculate</button>
 
          </div>
         <br>
-        <p3>Zéro: </p3>
+        <p3>Zéro.s: </p3>
         <p2 id="sol">TEST</p2>
         <canvas id="myChart" style="width:100%;max-width:700px"></canvas>
 

@@ -1,10 +1,78 @@
 
 document.getElementById("equations").addEventListener("change", modifyLayout);
-
+var chart = null;
 function solve_equation(a, b)
 {
 let x = (-b)/a;
 return x;
+};
+
+
+function poldeg3(a, b, c, d) {
+    let p = (3*a*c - b**2) / (3*a**2);
+    let q = (2*b**3 - 9*a*b*c + 27*a**2*d) / (27*a**3);
+
+    let delta = (q/2)**2 + (p/3)**3;
+
+    let x1, x2, x3;
+
+    
+
+
+
+let dataPoints = [];
+for (let x = -10; x <= 10; x += 0.001) {
+    let y = a*x**3 + b*x**2 + c*x + d;
+    dataPoints.push({ x: x, y: y });
+}
+
+
+var ctx = document.getElementById("myChart").getContext('2d');
+if (chart){chart.destroy();};
+chart = new Chart(ctx, {
+    type: 'line',
+    data: {
+        datasets: [
+            {
+                label: 'f(x)',
+                data: dataPoints,
+                borderColor: 'blue',
+                fill: false,
+                pointRadius: 0
+            }
+            
+        ]
+    },
+    options: {
+        scales: {
+            xAxes: [{
+                type: 'linear',
+                position: 'bottom'
+            }],
+            yAxes: [{
+                ticks: {
+                    beginAtZero: false
+                }
+            }]
+        }
+    }
+});
+if (delta >= 0) {
+        let u = Math.cbrt(-q/2 + Math.sqrt(delta));
+        let v = Math.cbrt(-q/2 - Math.sqrt(delta));
+        x1 = u + v - b/(3*a);
+        return [x1];
+    } else {
+        let r = Math.sqrt(-(p**3)/27);
+        let phi = Math.acos(-q/(2*r));
+        let m = 2 * Math.sqrt(-p/3);
+
+        x1 = m * Math.cos(phi/3) - b/(3*a);
+        x2 = m * Math.cos((phi + 2*Math.PI)/3) - b/(3*a);
+        x3 = m * Math.cos((phi + 4*Math.PI)/3) - b/(3*a);
+
+        return [x1, x2, x3];
+    }
 };
 
 function CalculateQuadraticx1(a, b, c, decide)
@@ -41,7 +109,7 @@ function Calculate(){
 			
 			if(a == 0)
 			{
-			document.getElementById("sol").innerText = "No zeros. The function is constant."
+			document.getElementById("sol").innerText = "No zeros. The function is constant.";
 			}
 			else
 			{
@@ -58,8 +126,9 @@ function Calculate(){
 			yValues.push(a*x + b);
 				};
 
-
-			new Chart(document.getElementById("myChart"), {
+				if (chart){chart.destroy();};
+			
+			chart = new Chart(document.getElementById("myChart"), {
 			type: "line",
 			data: {
 			labels: xValues,
@@ -115,8 +184,8 @@ function Calculate(){
 	{
 	    generateData(x => a*x*x + b*x + c, -10, 10, xValues, yValues);
 	}
-
-	new Chart(document.getElementById("myChart"), {
+	if (chart){chart.destroy();};
+	chart = new Chart(document.getElementById("myChart"), {
 
 	    type: "line",
 	    data: {
@@ -145,7 +214,19 @@ function Calculate(){
 
 	
 
+				}else{
+
+					let sol = poldeg3(aA, bB, cC, dD);
+					if (sol.length == 3){
+						document.getElementById("sol").innerText = "x1: " + sol[0] + " x2: "+sol[1]+" x3: "+sol[2];
+				}else{
+					document.getElementById("sol").innerText = "x: " + sol[0] ;
 				};
+					
+
+
+
+			};
 			};
 
 
