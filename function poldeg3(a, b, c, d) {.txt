@@ -1,6 +1,12 @@
-function poldeg3(a, b, c, d) {
+<!DOCTYPE html>
+<html>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.4/Chart.min.js"></script>
+<body>
 
-    // réduction
+<canvas id="myChart" style="width:100%;max-width:600px"></canvas>
+
+<script>
+function poldeg3(a, b, c, d) {
     let p = (3*a*c - b**2) / (3*a**2);
     let q = (2*b**3 - 9*a*b*c + 27*a**2*d) / (27*a**3);
 
@@ -8,19 +14,55 @@ function poldeg3(a, b, c, d) {
 
     let x1, x2, x3;
 
-    if (delta >= 0) {
-        // 🔹 1 seule racine réelle
+    
+
+
+
+let dataPoints = [];
+for (let x = -10; x <= 10; x += 0.00001) {
+    let y = a*x**3 + b*x**2 + c*x + d;
+    dataPoints.push({ x: x, y: y });
+}
+
+
+var ctx = document.getElementById(myChart').getContext('2d');
+
+new Chart(ctx, {
+    type: 'line',
+    data: {
+        datasets: [
+            {
+                label: 'f(x)',
+                data: dataPoints,
+                borderColor: 'blue',
+                fill: false,
+                pointRadius: 0
+            }
+            
+        ]
+    },
+    options: {
+        scales: {
+            xAxes: [{
+                type: 'linear',
+                position: 'bottom'
+            }],
+            yAxes: [{
+                ticks: {
+                    beginAtZero: false
+                }
+            }]
+        }
+    }
+});
+if (delta >= 0) {
         let u = Math.cbrt(-q/2 + Math.sqrt(delta));
         let v = Math.cbrt(-q/2 - Math.sqrt(delta));
-
         x1 = u + v - b/(3*a);
-
-        return [x1]; // les autres sont complexes
+        return [x1];
     } else {
-        // 🔹 3 racines réelles (cas intéressant)
         let r = Math.sqrt(-(p**3)/27);
-        let phi = Math.acos(-q/(2*r));1,0,-17,-15
-
+        let phi = Math.acos(-q/(2*r));
         let m = 2 * Math.sqrt(-p/3);
 
         x1 = m * Math.cos(phi/3) - b/(3*a);
@@ -29,4 +71,17 @@ function poldeg3(a, b, c, d) {
 
         return [x1, x2, x3];
     }
-}
+};
+
+poldeg3(1, 2, 3, 4)
+</script>
+
+
+
+
+
+
+
+</body>
+</html>
+
