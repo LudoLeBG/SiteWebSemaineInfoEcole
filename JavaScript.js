@@ -9,19 +9,49 @@ return x;
 
 
 function poldeg3(a, b, c, d) {
+	let solutions = [];
     let p = (3*a*c - b**2) / (3*a**2);
+
     let q = (2*b**3 - 9*a*b*c + 27*a**2*d) / (27*a**3);
 
     let delta = (q/2)**2 + (p/3)**3;
 
     let x1, x2, x3;
+    const e = 0.001;
+    if (e < delta) {
+    	
+        let u = Math.cbrt(-q/2 + Math.sqrt(delta));
+        let v = Math.cbrt(-q/2 - Math.sqrt(delta));
+        x1 = u + v - b/(3*a);
+ 		
+        solutions =  [x1];
+    } else if (0<delta || delta>-e) {
 
-    
+    let u = Math.cbrt(-q/2);
+
+    x1 = 2*u - b / (3*a);
+    x2 = -u - b / (3*a);    
+    solutions = [x1, x2];
+
+}else {
+
+        let r = Math.sqrt(-(p**3)/27);
+        let phi = Math.acos(-q/(2*r));
+        let m = 2 * Math.sqrt(-p/3);
+
+        x1 = m * Math.cos(phi/3) - b/(3*a);
+        x2 = m * Math.cos((phi + 2*Math.PI)/3) - b/(3*a);
+        x3 = m * Math.cos((phi + 4*Math.PI)/3) - b/(3*a);
+
+        solutions = [x1, x2, x3];
+    }
 
 
+let zeroPoints = solutions.map(x => ({ x: x, y: 0 }));
+solutions.sort();
 
 let dataPoints = [];
-for (let x = -10; x <= 10; x += 0.001) {
+for (let x = Math.round(solutions[0])-100; x <= Math.round(solutions[solutions.length-1])+100; x += 1) {
     let y = a*x**3 + b*x**2 + c*x + d;
     dataPoints.push({ x: x, y: y });
 }
@@ -39,7 +69,15 @@ chart = new Chart(ctx, {
                 borderColor: 'blue',
                 fill: false,
                 pointRadius: 0
-            }
+            },
+             {
+        label: 'Zéros',
+        data: zeroPoints,
+        backgroundColor: 'red',
+        borderColor: 'red',
+        pointRadius: 5,
+        showLine: false
+    }
             
         ]
     },
@@ -57,22 +95,7 @@ chart = new Chart(ctx, {
         }
     }
 });
-if (delta >= 0) {
-        let u = Math.cbrt(-q/2 + Math.sqrt(delta));
-        let v = Math.cbrt(-q/2 - Math.sqrt(delta));
-        x1 = u + v - b/(3*a);
-        return [x1];
-    } else {
-        let r = Math.sqrt(-(p**3)/27);
-        let phi = Math.acos(-q/(2*r));
-        let m = 2 * Math.sqrt(-p/3);
-
-        x1 = m * Math.cos(phi/3) - b/(3*a);
-        x2 = m * Math.cos((phi + 2*Math.PI)/3) - b/(3*a);
-        x3 = m * Math.cos((phi + 4*Math.PI)/3) - b/(3*a);
-
-        return [x1, x2, x3];
-    }
+return solutions
 };
 
 function CalculateQuadraticx1(a, b, c, decide)
@@ -95,6 +118,7 @@ function CalculateQuadraticx2(a, b, c, decide)
 };
 
 function Calculate(){
+	const numberOfDecimals = 10000;
 	let aA = Number(document.getElementById("param3").value);
 	let bB = Number(document.getElementById("param2").value);
 	let cC = Number(document.getElementById("param1").value);
@@ -114,9 +138,8 @@ function Calculate(){
 			else
 			{
 			let solution = solve_equation(a, b);
-
+			document.getElementById("last_step").innerText="(-b)/a = "+ "(-" +b +")/" + a + "=" + solution;
 			
-			document.getElementById("sol").innerText = solution;
 			}
 
 			var xValues = [];
@@ -157,7 +180,7 @@ function Calculate(){
 
 	if(decide < 0)
 	{
-	    document.getElementById("sol").innerText = "It is a complex root. We cannot calculate such yet.";
+	    document.getElementById("sol").innerText = "On ne peut pas encore calculer ce zéro. C'est une racine complexe.";
 	}
 
 	else if(decide >= 0)
@@ -165,8 +188,8 @@ function Calculate(){
 	    x1 = CalculateQuadraticx1(a, b, c, decide);
 	    x2 = CalculateQuadraticx2(a, b, c, decide);
 
-	    document.getElementById("sol").innerText = "x1: "+x1+" x2: "+ x2;
-
+	    document.getElementById("sol").innerText = "x1: "+(Math.round(x1*numberOfDecimals)/numberOfDecimals)+" x2: "+ (Math.round(x2*numberOfDecimals)/numberOfDecimals);
+	    document.getElementById("last_step").innerText="((-1)*b +- Sqrt(delta))/2*a = ((-1)*"+b+"+-Sqrt("+decide+"))/2*"+a;
 	}
 
 
@@ -177,7 +200,7 @@ function Calculate(){
 
 	if(typeof x1 !== 'undefined')
 	{ 
-	    generateData(x => a*x*x + b*x + c, x2-3, x1+3, xValues, yValues);
+	    generateData(x => a*x*x + b*x + c, Math.round(x2)-3, Math.round(x1)+3, xValues, yValues);
 
 	}
 	else
@@ -218,9 +241,12 @@ function Calculate(){
 
 					let sol = poldeg3(aA, bB, cC, dD);
 					if (sol.length == 3){
-						document.getElementById("sol").innerText = "x1: " + sol[0] + " x2: "+sol[1]+" x3: "+sol[2];
-				}else{
-					document.getElementById("sol").innerText = "x: " + sol[0] ;
+						document.getElementById("sol").innerText = "x1: " + (Math.round(sol[0]*numberOfDecimals)/numberOfDecimals)
+						 + " x2: "+(Math.round(sol[1]*numberOfDecimals)/numberOfDecimals)+" x3: "+(Math.round(sol[2]*numberOfDecimals)/numberOfDecimals);
+				}else if (sol.length == 2){document.getElementById("sol").innerText = "x1: " + (Math.round(sol[0]*numberOfDecimals)/numberOfDecimals)
+				 + " x2: "+(Math.round(sol[1]*numberOfDecimals)/numberOfDecimals);}
+				else{
+					document.getElementById("sol").innerText = "x: " + (Math.round(sol[0]*numberOfDecimals)/numberOfDecimals) ;
 				};
 					
 

@@ -1,20 +1,21 @@
 
 <!DOCTYPE html>
 <html lang="fr-CH">
-<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.4/Chart.js"></script>
+
 
 <head>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.4/Chart.js"></script>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <link href="styling.css" rel="stylesheet" />
   <link rel="icon" type="image/x-icon" href="source/Website icon.png">
-  <title class="TITLE"> EquationiX</title>
+  <title> EquationiX</title>
 </head>
 <body>
 
 
-        <h1 class="main-title"><sub> <img src="source/Website Icon.png" alt="website Logo" style="width:50px;height:50px;"></sub> Equationix</h1> 
-         <p1 class="title"> Choisis le degré: </p1> 
+        <h1 class="main-title"><sub> <img src="source/Website icon.png" alt="website Logo" style="width:50px;height:50px;"></sub> Equationix</h1> 
+         <p class="title"> Choisis le degré: </p> 
         <select id="equations" name="equation_choice">
           <option value="1">Equation du 1er degré</option>
           <option value="2">Equation du 2e degré</option>
@@ -38,8 +39,9 @@
 
          </div>
         <br>
-        <p3>Zéro.s: </p3>
-        <p2 id="sol">TEST</p2>
+        <p id="last_step">check</p>
+        <p>Zéro.s: <span id="sol"></span></p>  
+        
         <canvas id="myChart" style="width:100%;max-width:700px"></canvas>
 
            
@@ -51,8 +53,6 @@
 
 
 
-
-</div>
   
 </body>
 </html>
