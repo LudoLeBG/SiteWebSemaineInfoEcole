@@ -51,7 +51,8 @@ let zeroPoints = solutions.map(x => ({ x: x, y: 0 }));
 solutions.sort();
 
 let dataPoints = [];
-for (let x = (-1.1)*Math.abs(Math.round(solutions[0])); x <= 1.1*Math.abs(Math.round(solutions[solutions.length-1])); x += 0.0001) {
+alert((-1.1)*Math.abs(Math.round(solutions[0])));
+for (let x = (-1.1)*Math.abs(Math.round(solutions[0])); x <= 1.1*Math.abs(Math.round(solutions[solutions.length-1])); x += 0.001) {
     let y = a*x**3 + b*x**2 + c*x + d;
     dataPoints.push({ x: x, y: y });
 }
@@ -104,7 +105,7 @@ function CalculateQuadraticx1(a, b, c, decide)
     return x1
 };
 
-function generateData(func, i1, i2, xValues, yValues, step = 0.0001) {
+function generateData(func, i1, i2, xValues, yValues, step = 0.001) {
     for (let x = i1; x <= i2; x += step) {
         xValues.push(x);
         yValues.push(func(x));
@@ -199,7 +200,7 @@ function Calculate(){
 
 	const xValues = [];
 	const yValues = [];
-let zeroPoints = [];
+	let zeroPoints = [];
 	if(typeof x1 !== 'undefined')
 	{ 
 	    generateData(x => a*x*x + b*x + c, Math.round(x2)-3, Math.round(x1)+3, xValues, yValues);
@@ -221,15 +222,8 @@ let zeroPoints = [];
 	            pointRadius: 1,
 	            borderColor: "rgba(255,0,0,0.5)",
 	            data: yValues
-	        },
-					{
-        label: 'Zéros',
-        data: zeroPoints,
-        backgroundColor: 'red',
-        borderColor: 'red',
-        pointRadius: 5,
-        showLine: false
-    }]
+	        }
+					]
 	    },
 	    options: {
 	        legend: {display: false},
