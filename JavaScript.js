@@ -51,7 +51,7 @@ let zeroPoints = solutions.map(x => ({ x: x, y: 0 }));
 solutions.sort();
 
 let dataPoints = [];
-for (let x = Math.round(solutions[0])-100; x <= Math.round(solutions[solutions.length-1])+100; x += 1) {
+for (let x = Math.round(solutions[0])*-2; x <= Math.round(solutions[solutions.length-1])*2; x += 1) {
     let y = a*x**3 + b*x**2 + c*x + d;
     dataPoints.push({ x: x, y: y });
 }
@@ -123,7 +123,8 @@ function Calculate(){
 	let bB = Number(document.getElementById("param2").value);
 	let cC = Number(document.getElementById("param1").value);
 	let dD = Number(document.getElementById("cons").value);
-	
+	document.getElementById("sol").innerText = "";
+	document.getElementById("last_step").innerText = "";
 	if (aA==0){
 
 	if(bB==0){
@@ -134,7 +135,7 @@ function Calculate(){
 			if(a == 0)
 			{
 			document.getElementById("sol").innerText = "No zeros. The function is constant.";
-				document.getElementById("last_step").innerText = "";			}
+						}
 			else
 			{
 			let solution = solve_equation(a, b);
@@ -144,7 +145,7 @@ function Calculate(){
 
 			var xValues = [];
 			var yValues = [];
-			for(var x = -10; x <= 10; x = x + 1){
+			for(var x = solution-10; x <= solution+10; x = x + 1){
 			xValues.push(x);
 			yValues.push(a*x + b);
 				};
@@ -181,7 +182,7 @@ function Calculate(){
 	if(decide < 0)
 	{
 	    document.getElementById("sol").innerText = "On ne peut pas encore calculer ce zéro. C'est une racine complexe.";
-		document.getElementById("last_step").innerText = "";
+		
 	}
 
 	else if(decide >= 0)
