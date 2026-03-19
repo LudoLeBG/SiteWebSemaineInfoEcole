@@ -51,7 +51,7 @@ let zeroPoints = solutions.map(x => ({ x: x, y: 0 }));
 solutions.sort();
 
 let dataPoints = [];
-for (let x = (-1) * Math.sqrt((Math.round(solutions[0])*2)**2); x <= Math.sqrt((Math.round(solutions[solutions.length-1])*2)**2); x += 1) {
+for (let x = (-1) * Math.sqrt((Math.round(solutions[0] + 5)*2)**2); x <= Math.sqrt((Math.round(solutions[solutions.length-1] + 5)*2)**2); x += 1) {
     let y = a*x**3 + b*x**2 + c*x + d;
     dataPoints.push({ x: x, y: y });
 }
@@ -146,7 +146,7 @@ function Calculate(){
 
 			var xValues = [];
 			var yValues = [];
-			for(var x = Math.round(solution)*(-2); x <= Math.round(solution)*2; x = x + 1){
+			for(var x = Math.abs(Math.round(solution))*(-2) - 5; x <= Math.abs(Math.round(solution))*2+5; x = x + 1){
 			xValues.push(x);
 			yValues.push(a*x + b);
 				};
