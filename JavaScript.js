@@ -134,7 +134,7 @@ function Calculate(){
 			if(a == 0)
 			{
 			document.getElementById("sol").innerText = "No zeros. The function is constant.";
-			}
+				document.getElementById("last_step").innerText = "";			}
 			else
 			{
 			let solution = solve_equation(a, b);
@@ -181,6 +181,7 @@ function Calculate(){
 	if(decide < 0)
 	{
 	    document.getElementById("sol").innerText = "On ne peut pas encore calculer ce zéro. C'est une racine complexe.";
+		document.getElementById("last_step").innerText = "";
 	}
 
 	else if(decide >= 0)
@@ -240,6 +241,7 @@ function Calculate(){
 				}else{
 
 					let sol = poldeg3(aA, bB, cC, dD);
+					document.getElementById("last_step").innerText = "";
 					if (sol.length == 3){
 						document.getElementById("sol").innerText = "x1: " + (Math.round(sol[0]*numberOfDecimals)/numberOfDecimals)
 						 + " x2: "+(Math.round(sol[1]*numberOfDecimals)/numberOfDecimals)+" x3: "+(Math.round(sol[2]*numberOfDecimals)/numberOfDecimals);
