@@ -119,12 +119,12 @@ function CalculateQuadraticx2(a, b, c, decide)
 
 function Calculate(){
 	const numberOfDecimals = 10000;
-	document.getElementById("sol").innerText = "";
-	document.getElementById("last_step").innerText="";
 	let aA = Number(document.getElementById("param3").value);
 	let bB = Number(document.getElementById("param2").value);
 	let cC = Number(document.getElementById("param1").value);
 	let dD = Number(document.getElementById("cons").value);
+	document.getElementById("last_step").innerText="";
+	document.getElementById("sol").innerText ="";
 	
 	if (aA==0){
 
