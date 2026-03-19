@@ -51,7 +51,7 @@ let zeroPoints = solutions.map(x => ({ x: x, y: 0 }));
 solutions.sort();
 
 let dataPoints = [];
-for (let x = (-1) * Math.sqrt((Math.round(solutions[0] + 5)*2)**2); x <= Math.sqrt((Math.round(solutions[solutions.length-1] + 5)*2)**2); x += 1) {
+for (let x = Math.round(solutions[0])-100; x <= Math.round(solutions[solutions.length-1])+100; x += 1) {
     let y = a*x**3 + b*x**2 + c*x + d;
     dataPoints.push({ x: x, y: y });
 }
@@ -119,12 +119,13 @@ function CalculateQuadraticx2(a, b, c, decide)
 
 function Calculate(){
 	const numberOfDecimals = 10000;
+	document.getElementById("sol").innerText = "";
+	document.getElementById("last_step").innerText="";
 	let aA = Number(document.getElementById("param3").value);
 	let bB = Number(document.getElementById("param2").value);
 	let cC = Number(document.getElementById("param1").value);
 	let dD = Number(document.getElementById("cons").value);
-	document.getElementById("sol").innerText = "";
-	document.getElementById("last_step").innerText = "";
+	
 	if (aA==0){
 
 	if(bB==0){
@@ -135,8 +136,7 @@ function Calculate(){
 			if(a == 0)
 			{
 			document.getElementById("sol").innerText = "No zeros. The function is constant.";
-			let solution = 0;
-						}
+			}
 			else
 			{
 			let solution = solve_equation(a, b);
@@ -146,7 +146,7 @@ function Calculate(){
 
 			var xValues = [];
 			var yValues = [];
-			for(var x = Math.abs(Math.round(solution))*(-2) - 5; x <= Math.abs(Math.round(solution))*2+5; x = x + 1){
+			for(var x = -10; x <= 10; x = x + 1){
 			xValues.push(x);
 			yValues.push(a*x + b);
 				};
@@ -183,7 +183,6 @@ function Calculate(){
 	if(decide < 0)
 	{
 	    document.getElementById("sol").innerText = "On ne peut pas encore calculer ce zéro. C'est une racine complexe.";
-		
 	}
 
 	else if(decide >= 0)
@@ -243,7 +242,6 @@ function Calculate(){
 				}else{
 
 					let sol = poldeg3(aA, bB, cC, dD);
-					document.getElementById("last_step").innerText = "";
 					if (sol.length == 3){
 						document.getElementById("sol").innerText = "x1: " + (Math.round(sol[0]*numberOfDecimals)/numberOfDecimals)
 						 + " x2: "+(Math.round(sol[1]*numberOfDecimals)/numberOfDecimals)+" x3: "+(Math.round(sol[2]*numberOfDecimals)/numberOfDecimals);
