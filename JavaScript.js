@@ -51,7 +51,7 @@ let zeroPoints = solutions.map(x => ({ x: x, y: 0 }));
 solutions.sort();
 
 let dataPoints = [];
-for (let x = Math.round(solutions[0])*-2; x <= Math.round(solutions[solutions.length-1])*2; x += 1) {
+for (let x = (-1) * Math.sqrt((Math.round(solutions[0])*2)**2); x <= Math.sqrt((Math.round(solutions[solutions.length-1])*2)**2); x += 1) {
     let y = a*x**3 + b*x**2 + c*x + d;
     dataPoints.push({ x: x, y: y });
 }
@@ -135,6 +135,7 @@ function Calculate(){
 			if(a == 0)
 			{
 			document.getElementById("sol").innerText = "No zeros. The function is constant.";
+			let solution = 0;
 						}
 			else
 			{
@@ -145,7 +146,7 @@ function Calculate(){
 
 			var xValues = [];
 			var yValues = [];
-			for(var x = solution-10; x <= solution+10; x = x + 1){
+			for(var x = Math.round(solution)*(-2); x <= Math.round(solution)*2; x = x + 1){
 			xValues.push(x);
 			yValues.push(a*x + b);
 				};
