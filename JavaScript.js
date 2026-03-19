@@ -51,7 +51,7 @@ let zeroPoints = solutions.map(x => ({ x: x, y: 0 }));
 solutions.sort();
 
 let dataPoints = [];
-for (let x = Math.round(solutions[0])-100; x <= Math.round(solutions[solutions.length-1])+100; x += 1) {
+for (let x = (-1.1)*Math.abs(Math.round(solutions[0])); x <= 1.1*Math.abs(Math.round(solutions[solutions.length-1])); x += 0.0001) {
     let y = a*x**3 + b*x**2 + c*x + d;
     dataPoints.push({ x: x, y: y });
 }
@@ -104,7 +104,7 @@ function CalculateQuadraticx1(a, b, c, decide)
     return x1
 };
 
-function generateData(func, i1, i2, xValues, yValues, step = 1) {
+function generateData(func, i1, i2, xValues, yValues, step = 0.0001) {
     for (let x = i1; x <= i2; x += step) {
         xValues.push(x);
         yValues.push(func(x));
@@ -189,7 +189,7 @@ function Calculate(){
 	{
 	    x1 = CalculateQuadraticx1(a, b, c, decide);
 	    x2 = CalculateQuadraticx2(a, b, c, decide);
-
+		let solutions = [x1, x2];
 	    document.getElementById("sol").innerText = "x1: "+(Math.round(x1*numberOfDecimals)/numberOfDecimals)+" x2: "+ (Math.round(x2*numberOfDecimals)/numberOfDecimals);
 	    document.getElementById("last_step").innerText="((-1)*b +- Sqrt(delta))/2*a = ((-1)*"+b+"+-Sqrt("+decide+"))/2*"+a;
 	}
@@ -199,11 +199,11 @@ function Calculate(){
 
 	const xValues = [];
 	const yValues = [];
-
+let zeroPoints = [];
 	if(typeof x1 !== 'undefined')
 	{ 
 	    generateData(x => a*x*x + b*x + c, Math.round(x2)-3, Math.round(x1)+3, xValues, yValues);
-
+		 zeroPoints = solutions.map(x => ({ x: x, y: 0 }));
 	}
 	else
 	{
@@ -221,7 +221,15 @@ function Calculate(){
 	            pointRadius: 1,
 	            borderColor: "rgba(255,0,0,0.5)",
 	            data: yValues
-	        }]
+	        },
+					{
+        label: 'Zéros',
+        data: zeroPoints,
+        backgroundColor: 'red',
+        borderColor: 'red',
+        pointRadius: 5,
+        showLine: false
+    }]
 	    },
 	    options: {
 	        legend: {display: false},
